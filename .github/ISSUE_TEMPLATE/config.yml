@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question / Discussion
+    url: https://github.com/Prasadslaxmi08/autodataforge/discussions
+    about: Ask questions and discuss ideas with the community.
+  - name: Security vulnerability
+    url: https://github.com/Prasadslaxmi08/autodataforge/security/advisories/new
+    about: Please report security issues privately, not as public issues.

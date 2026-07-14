@@ -1,0 +1,50 @@
+# AutoDataForge — configuration (System Design §5.2).
+# Precedence (high -> low): env (VDS_*) > .env > this file > built-in defaults.
+# Model plugins are import paths "module:ClassName"; the defaults below point at
+# the framework's fake adapter so the app runs with no weights installed. Swap
+# these for real adapters in Phase 1.
+
+environment = "development"
+log_level = "INFO"
+log_json = true
+
+[models]
+# Phase-18.5 default: the real Ultralytics YOLO detector (model chosen in the GUI;
+# yolo11n by default). The classical BuiltinAdapter remains in the repo for offline
+# tests — pin it with VDS_MODELS__DETECTOR=vds.models.adapters.builtin:BuiltinAdapter.
+detector = "vds.models.adapters.yolo:YoloAdapter"
+segmenter = "vds.models.adapters.yolo:YoloAdapter"
+embedder = "vds.models.adapters.fake:FakeAdapter"
+classifier = "vds.models.adapters.fake:FakeAdapter"
+vision_judge = "vds.models.adapters.fake:FakeAdapter"
+text_llm = "vds.models.adapters.fake:FakeAdapter"
+
+[gpu]
+device = "cpu"
+vram_budget_mb = 8192
+
+[runtime]
+batch_size = 16
+verification_sample_rate = 0.25
+review_budget_hours = 8.0
+
+[storage]
+database_url = "postgresql+psycopg://vds:vds@localhost:5432/vds"
+cas_root = "./data/cas"
+
+[export]
+default_format = "coco"
+
+[llm]
+# Agent-framework provider, selected entirely by config. Default is the runnable
+# Echo provider (no credentials). Swap to a real provider with one line:
+#   provider = "vds.agents.providers.anthropic:AnthropicProvider"
+#   provider = "vds.agents.providers.openai:OpenAIProvider"
+#   provider = "vds.agents.providers.ollama:OllamaProvider"
+provider = "vds.agents.providers.echo:EchoProvider"
+model = "echo-model"
+temperature = 0.0
+timeout_seconds = 60.0
+max_retries = 2
+retry_backoff_seconds = 0.5
+# api_key comes from the environment: VDS_LLM__API_KEY (never commit keys)

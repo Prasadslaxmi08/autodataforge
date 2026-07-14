@@ -1,0 +1,78 @@
+[project]
+name = "autodataforge"
+version = "0.1.0"
+description = "Agentic AI platform for intelligent dataset engineering — specialized agents plan, decide, execute, verify, remember, and export AI datasets."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [{ name = "EON Space Labs", email = "eonspacelabspvtltd@gmail.com" }]
+keywords = ["agentic-ai", "multi-agent", "dataset-engineering", "computer-vision", "mcp", "annotation", "yolo", "coco"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "pydantic>=2.6",
+    "pydantic-settings>=2.2",
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.29",
+    "typer>=0.12",
+    "structlog>=24.1",
+    "Pillow>=10.0",
+    "numpy>=1.26",
+    "psutil>=5.9",
+]
+
+[project.optional-dependencies]
+# Persistence + vector store. Kept out of the base install so a fresh clone runs
+# with zero external services.
+store = ["sqlalchemy>=2.0", "alembic>=1.13", "psycopg[binary]>=3.1", "pgvector>=0.2"]
+# Desktop GUI. PySide6-Essentials keeps the install lean (no WebEngine).
+gui = ["PySide6-Essentials>=6.6"]
+# Production detector: real Ultralytics YOLO (pulls torch). Optional so CI and the
+# classical builtin path need no heavy ML deps.
+detect = ["ultralytics>=8.3"]
+# MCP server: the official Model Context Protocol SDK. Optional — the server core and
+# tests are dependency-free; only the stdio transport needs this.
+mcp = ["mcp>=1.2"]
+dev = ["pytest>=8.0", "mypy>=1.9", "ruff>=0.3", "hypothesis>=6.100", "httpx>=0.27", "pytest-qt>=4.4"]
+
+[project.urls]
+Homepage = "https://github.com/Prasadslaxmi08/autodataforge"
+Repository = "https://github.com/Prasadslaxmi08/autodataforge"
+Documentation = "https://github.com/Prasadslaxmi08/autodataforge/tree/main/docs"
+Issues = "https://github.com/Prasadslaxmi08/autodataforge/issues"
+
+# Console entry points. `autodataforge` is canonical; `adf` is a short alias.
+# The Python import package remains `vds` (renaming it would break every import).
+[project.scripts]
+autodataforge = "vds.cli.main:app"
+autodataforge-studio = "vds.gui.app:main"
+autodataforge-mcp = "vds.mcp.stdio:main"
+adf = "vds.cli.main:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["vds"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+plugins = ["pydantic.mypy"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

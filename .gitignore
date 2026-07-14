@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment / secrets
+.env
+*.env
+!.env.example
+
+# Runtime-generated data (datasets, exports, benchmarks, DBs)
+data/
+export/
+benchmarks/
+*.db
+*.sqlite
+*.sqlite3
+
+# Model weights (auto-downloaded on first run)
+*.pt
+*.onnx
+*.pth
+
+# Tooling caches
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local agent/dev tooling
+.claude/settings.local.json
+
+# Node (docs tooling, if any)
+node_modules/
+
+# sample_data/ is intentionally committed as a demo asset for the quick start.
