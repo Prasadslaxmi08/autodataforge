@@ -132,24 +132,6 @@ backend**. Agents orchestrate; the backend does the work.
 6. On approval, the **Execution** agent runs the pipeline through backend tools.
 7. The **Memory** agent records the outcome; the orchestrator emits a final report.
 
----
-
-## 📸 Screenshots
-
-> Screenshots of the AutoDataForge desktop application. Regenerate with
-> `python scripts/gui_screenshots.py`.
-
-| Dashboard | Planner Workspace |
-|-----------|-------------------|
-| ![Dashboard](docs/screenshots/01_dashboard.png) | ![Planner](docs/screenshots/03_planner_workspace.png) |
-
-| Verification Workspace | Operations Center |
-|------------------------|-------------------|
-| ![Verification](docs/screenshots/06_verification_workspace.png) | ![Operations](docs/screenshots/09_operations_center.png) |
-
-<!-- Add product/hero screenshots or a demo GIF here for the GitHub landing page. -->
-
----
 
 ## 🧰 Technology Stack
 
